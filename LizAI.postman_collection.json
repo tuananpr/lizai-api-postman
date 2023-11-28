@@ -1,0 +1,991 @@
+{
+	"info": {
+		"_postman_id": "83b03f50-1bfb-46f4-935a-d07358e4c782",
+		"name": "Test Run LizAI",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19807752"
+	},
+	"item": [
+		{
+			"name": "App Feature manager",
+			"item": [
+				{
+					"name": "Sign in EncryptData",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"  pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Respone time <500ms\", function () {\r",
+									"    pm.response.to.responseTime.below(1000);\r",
+									"});\r",
+									"\r",
+									"pm.environment.set(\"k\",pm.response.json().data.k);\r",
+									"pm.environment.set(\"d\",pm.response.json().data.d);\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"desKey\": \"tlDlLeL1VxXuoQbS3uZ1PxR5\",\r\n        \"data\": {\r\n            \"DeviceId\": \"eedxAkZ3d3wlCXE+P0hgdNlwxvvjnRKdzQUcmgqSWQK6VxvnZdzwGzysUCk8ij76\",\r\n            \"SignUpType\":0,\r\n            \"AccessToken\":null,\r\n            \"AppleCode\":null,\r\n            \"Language\":null,\r\n            \"FromIOS\":true,\r\n            \"AuthorizationCodeZalo\":null,\r\n            \"CodeVerifierZalo\":null,\r\n            \"Email\":\"lizai.startup@gmail.com\",\r\n            \"Password\":\"123456\"\r\n        }\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{LizAI API Mobile Dev}}/ZDevelopment/EncryptData",
+							"host": [
+								"{{LizAI API Mobile Dev}}"
+							],
+							"path": [
+								"ZDevelopment",
+								"EncryptData"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SignIn Admin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"  pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Respone time <1000ms\", function () {\r",
+									"    pm.response.to.responseTime.below(1000);\r",
+									"});\r",
+									"\r",
+									"var jsonData = pm.response.json();\r",
+									"pm.test(\"check data\" , function(){\r",
+									"    pm.expect(jsonData.data.data.userLogin).to.eql(\"lizai.startup@gmail.com\");\r",
+									"});\r",
+									"\r",
+									"pm.environment.set(\"LizAI Token user Admin\",jsonData.data.data.accessToken); \r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"d\": \"{{d}}\",\r\n  \"k\": \"{{k}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{LizAI API Mobile Dev}}/User/SignIn",
+							"host": [
+								"{{LizAI API Mobile Dev}}"
+							],
+							"path": [
+								"User",
+								"SignIn"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "System/GetLanguages",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"  pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Respone time <500ms\", function () {\r",
+									"    pm.response.to.responseTime.below(1000);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{LizAI Token user Admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{LizAI API Mobile Dev}}/System/GetLanguages?page=1&pageSize=16",
+							"host": [
+								"{{LizAI API Mobile Dev}}"
+							],
+							"path": [
+								"System",
+								"GetLanguages"
+							],
+							"query": [
+								{
+									"key": "keyWord",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "pageSize",
+									"value": "16"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Language EncryptData",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"  pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Respone time <500ms\", function () {\r",
+									"    pm.response.to.responseTime.below(1000);\r",
+									"});\r",
+									"\r",
+									"pm.environment.set(\"k\",pm.response.json().data.k);\r",
+									"pm.environment.set(\"d\",pm.response.json().data.d);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"desKey\": \"zo2gahzoo48tkfbd6gr83uhg\",\r\n        \"data\": {\r\n            \"keyWord\": \"testLanguage\",\r\n            \"language\": 1,\r\n            \"value\": \"Kiểm tra Language\"\r\n           }\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{LizAI API Mobile Dev}}/ZDevelopment/EncryptData",
+							"host": [
+								"{{LizAI API Mobile Dev}}"
+							],
+							"path": [
+								"ZDevelopment",
+								"EncryptData"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "System/AddLanguage",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"  pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Respone time <500ms\", function () {\r",
+									"    pm.response.to.responseTime.below(1000);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{LizAI token user}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"d\": \"{{d}}\",\r\n  \"k\": \"{{k}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{LizAI API Mobile Dev}}/System/AddLanguage",
+							"host": [
+								"{{LizAI API Mobile Dev}}"
+							],
+							"path": [
+								"System",
+								"AddLanguage"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "System/GetLanguages",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code is 200', function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"})\r",
+									"\r",
+									"pm.test('Respone time <500ms', function () {\r",
+									"    pm.response.to.responseTime.below(1000);\r",
+									"})\r",
+									"\r",
+									"var jsonData = pm.response.json();\r",
+									"pm.test(\"check data\" , function(){\r",
+									"    pm.expect(jsonData.data.data.list[4].data[0].keyWord).to.eql(\"testLanguage\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{LizAI Token user Admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{LizAI API Mobile Dev}}/System/GetLanguages?page=1&pageSize=16",
+							"host": [
+								"{{LizAI API Mobile Dev}}"
+							],
+							"path": [
+								"System",
+								"GetLanguages"
+							],
+							"query": [
+								{
+									"key": "keyWord",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "pageSize",
+									"value": "16"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateLanguage EncryptData",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"  pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Respone time <500ms\", function () {\r",
+									"    pm.response.to.responseTime.below(1000);\r",
+									"});\r",
+									"\r",
+									"pm.environment.set(\"k\",pm.response.json().data.k);\r",
+									"pm.environment.set(\"d\",pm.response.json().data.d);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"desKey\": \"zo2gahzoo48tkfbd6gr83uhg\",\r\n        \"data\": {\r\n            \"keyWord\": \"testLanguage\",\r\n            \"language\": 1,\r\n            \"value\": \"Cập nhật Language\"\r\n           }\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{LizAI API Mobile Dev}}/ZDevelopment/EncryptData",
+							"host": [
+								"{{LizAI API Mobile Dev}}"
+							],
+							"path": [
+								"ZDevelopment",
+								"EncryptData"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateLanguage",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{LizAI Token user Admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"d\": \"{{d}}\",\r\n  \"k\": \"{{k}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{LizAI API Mobile Dev}}/System/UpdateLanguage",
+							"host": [
+								"{{LizAI API Mobile Dev}}"
+							],
+							"path": [
+								"System",
+								"UpdateLanguage"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "System/GetLanguages",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"  pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Respone time <500ms\", function () {\r",
+									"    pm.response.to.responseTime.below(1000);\r",
+									"});\r",
+									"\r",
+									"var jsonData = pm.response.json();\r",
+									"pm.test(\"check data\" , function(){\r",
+									"    pm.expect(jsonData.data.data.list[4].data[0].value).to.eql(\"Cập nhật Language\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{LizAI Token user Admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{LizAI API Mobile Dev}}/System/GetLanguages?page=1&pageSize=16",
+							"host": [
+								"{{LizAI API Mobile Dev}}"
+							],
+							"path": [
+								"System",
+								"GetLanguages"
+							],
+							"query": [
+								{
+									"key": "keyWord",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "pageSize",
+									"value": "16"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "AddGroupLanguage EncryptData",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"  pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Respone time <500ms\", function () {\r",
+									"    pm.response.to.responseTime.below(1000);\r",
+									"});\r",
+									"\r",
+									"pm.environment.set(\"k\",pm.response.json().data.k);\r",
+									"pm.environment.set(\"d\",pm.response.json().data.d);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"desKey\": \"zo2gahzoo48tkfbd6gr83uhg\",\r\n    \"data\": {\r\n        \"KeyWord\":\"testLanguage\",\r\n        \"Data\":\r\n        [\r\n            {\r\n                \"KeyWord\":\"testLanguage\",\r\n                \"Language\":2,\r\n                \"Value\":\"Add Thailand Language\"\r\n            },\r\n            {\r\n                \"KeyWord\":\"testLanguage\",\r\n                \"Language\":0,\r\n                \"Value\":\"Add Vietnamese Language\"\r\n            }\r\n        ]\r\n    }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{LizAI API Mobile Dev}}/ZDevelopment/EncryptData",
+							"host": [
+								"{{LizAI API Mobile Dev}}"
+							],
+							"path": [
+								"ZDevelopment",
+								"EncryptData"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "AddGroupLanguage",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{LizAI Token user Admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"d\": \"{{d}}\",\r\n  \"k\": \"{{k}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{LizAI API Mobile Dev}}/System/AddGroupLanguage",
+							"host": [
+								"{{LizAI API Mobile Dev}}"
+							],
+							"path": [
+								"System",
+								"AddGroupLanguage"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "System/GetLanguages",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"  pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Respone time <500ms\", function () {\r",
+									"    pm.response.to.responseTime.below(1000);\r",
+									"});\r",
+									"\r",
+									"var jsonData = pm.response.json();\r",
+									"pm.test(\"check data\" , function(){\r",
+									"    pm.expect(jsonData.data.data.list[4].data[0].value).to.eql(\"Add Vietnamese Language\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{LizAI Token user Admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{LizAI API Mobile Dev}}/System/GetLanguages?page=1&pageSize=16",
+							"host": [
+								"{{LizAI API Mobile Dev}}"
+							],
+							"path": [
+								"System",
+								"GetLanguages"
+							],
+							"query": [
+								{
+									"key": "keyWord",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "pageSize",
+									"value": "16"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateGroupLanguage EncryptData",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"  pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Respone time <500ms\", function () {\r",
+									"    pm.response.to.responseTime.below(1000);\r",
+									"});\r",
+									"\r",
+									"pm.environment.set(\"k\",pm.response.json().data.k);\r",
+									"pm.environment.set(\"d\",pm.response.json().data.d);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"desKey\": \"zo2gahzoo48tkfbd6gr83uhg\",\r\n    \"data\": {\r\n        \"KeyWord\":\"testLanguage\",\r\n        \"Data\":\r\n        [\r\n            {\r\n                \"KeyWord\":\"testLanguage\",\r\n                \"Language\":0,\r\n                \"Value\":\"English Language\"\r\n            },\r\n            {\r\n                \"KeyWord\":\"testLanguage\",\r\n                \"Language\":1,\r\n                \"Value\":\"Vietnamese Language\"\r\n            },\r\n            {\r\n                \"KeyWord\":\"testLanguage\",\r\n                \"Language\":2,\r\n                \"Value\":\"Thailand Language\"\r\n            }\r\n        ]\r\n    }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{LizAI API Mobile Dev}}/ZDevelopment/EncryptData",
+							"host": [
+								"{{LizAI API Mobile Dev}}"
+							],
+							"path": [
+								"ZDevelopment",
+								"EncryptData"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateGroupLanguage",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{LizAI Token user Admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"d\": \"{{d}}\",\r\n  \"k\": \"{{k}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{LizAI API Mobile Dev}}/System/UpdateGroupLanguage",
+							"host": [
+								"{{LizAI API Mobile Dev}}"
+							],
+							"path": [
+								"System",
+								"UpdateGroupLanguage"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "System/GetLanguages",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"  pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Respone time <500ms\", function () {\r",
+									"    pm.response.to.responseTime.below(1000);\r",
+									"});\r",
+									"\r",
+									"var jsonData = pm.response.json();\r",
+									"pm.test(\"check data\" , function(){\r",
+									"    pm.expect(jsonData.data.data.list[4].data[1].value).to.eql(\"Vietnamese Language\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{LizAI Token user Admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{LizAI API Mobile Dev}}/System/GetLanguages?page=1&pageSize=16",
+							"host": [
+								"{{LizAI API Mobile Dev}}"
+							],
+							"path": [
+								"System",
+								"GetLanguages"
+							],
+							"query": [
+								{
+									"key": "keyWord",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "pageSize",
+									"value": "16"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteLanguage EncryptData",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"  pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Respone time <500ms\", function () {\r",
+									"    pm.response.to.responseTime.below(1000);\r",
+									"});\r",
+									"\r",
+									"pm.environment.set(\"k\",pm.response.json().data.k);\r",
+									"pm.environment.set(\"d\",pm.response.json().data.d);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"desKey\": \"zo2gahzoo48tkfbd6gr83uhg\",\r\n        \"data\": {\r\n            \"keyWord\": \"testLanguage\"\r\n           }\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{LizAI API Mobile Dev}}/ZDevelopment/EncryptData",
+							"host": [
+								"{{LizAI API Mobile Dev}}"
+							],
+							"path": [
+								"ZDevelopment",
+								"EncryptData"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteLanguage",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{LizAI Token user Admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"d\": \"{{d}}\",\r\n    \"k\": \"{{k}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{LizAI API Mobile Dev}}/System/DeleteLanguage",
+							"host": [
+								"{{LizAI API Mobile Dev}}"
+							],
+							"path": [
+								"System",
+								"DeleteLanguage"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "System/GetLanguages",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"  pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Respone time <500ms\", function () {\r",
+									"    pm.response.to.responseTime.below(1000);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{LizAI Token user Admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{LizAI API Mobile Dev}}/System/GetLanguages?page=1&pageSize=16",
+							"host": [
+								"{{LizAI API Mobile Dev}}"
+							],
+							"path": [
+								"System",
+								"GetLanguages"
+							],
+							"query": [
+								{
+									"key": "keyWord",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "pageSize",
+									"value": "16"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
